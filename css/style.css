@@ -1,1 +1,172 @@
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f2ff;
+    color: #29223d;
+    line-height: 1.6;
+}
+
+
+.top-bar {
+    background: white;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+.top-bar h1 {
+    color: #7655c7;
+}
+
+
+.top-bar p {
+    color: #777;
+}
+
+
+.admin-link {
+    text-decoration: none;
+    color: #7655c7;
+    font-weight: bold;
+    background: #eee8ff;
+    padding: 10px 18px;
+    border-radius: 25px;
+}
+
+
+main {
+    width: min(850px, 92%);
+    margin: 40px auto;
+}
+
+
+.welcome-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+.welcome-card h2 {
+    color: #7655c7;
+    margin-bottom: 8px;
+}
+
+
+.question-card {
+    background: white;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+.question-card h2 {
+    margin-bottom: 20px;
+    font-size: 21px;
+}
+
+
+.choices {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+.choice:hover {
+    border-color: #a78bdf;
+    background: #faf8ff;
+}
+
+
+.choice input {
+    accent-color: #7655c7;
+}
+
+
+.finish-button {
+    width: 100%;
+    border: none;
+    padding: 17px;
+    border-radius: 15px;
+    background: #7655c7;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 40px;
+    transition: 0.2s;
+}
+
+
+.finish-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+
+.error-message {
+    background: #ffe5e5;
+    color: #a00000;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+
+@media (max-width: 600px) {
+
+    .top-bar {
+        padding: 18px;
+    }
+
+    .top-bar h1 {
+        font-size: 20px;
+    }
+
+    .admin-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    main {
+        width: 94%;
+        margin: 25px auto;
+    }
+
+    .question-card {
+        padding: 22px;
+    }
+
+}
