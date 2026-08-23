@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Your Answers</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <header class="top-bar">
+
+        <div>
+
+            <h1>📋 Your Answers</h1>
+
+            <p>
+                Review your answers before submitting.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="welcome-card">
+
+            <h2>Review your answers 👀</h2>
+
+            <p>
+                Make sure everything is correct before
+                submitting your form.
+            </p>
+
+        </section>
+
+
+        <section id="answersContainer">
+
+            <p class="loading">
+                Loading your answers...
+            </p>
+
+        </section>
+
+
+        <div class="results-actions">
+
+            <button
+                id="previewButton"
+                class="secondary-button"
+            >
+                👁 Preview
+            </button>
+
+
+            <button
+                id="downloadButton"
+                class="secondary-button"
+            >
+                ⬇ Download
+            </button>
+
+
+            <button
+                id="submitButton"
+                class="finish-button"
+            >
+                📤 Submit
+            </button>
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to form
+        </a>
+
+    </main>
+
+
+    <!-- HTML → PDF library -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    </script>
+
+
+    <!-- Application -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/results.js"></script>
+
+</body>
+
+</html>
