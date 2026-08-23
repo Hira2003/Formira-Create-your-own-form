@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Form</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="top-bar">
+
+        <div>
+            <h1>📝 My Form</h1>
+            <p>Please answer all questions</p>
+        </div>
+
+        <a href="admin.html" class="admin-link">
+            👤 Admin
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <section class="welcome-card">
+
+            <h2>Welcome! 👋</h2>
+
+            <p>
+                Please answer the following questions.
+                Scroll down to continue.
+            </p>
+
+        </section>
+
+
+        <form id="quizForm">
+
+            <div id="questionsContainer">
+                <p class="loading">
+                    Loading questions...
+                </p>
+            </div>
+
+
+            <button
+                type="submit"
+                id="finishButton"
+                class="finish-button">
+
+                Finished ✅
+
+            </button>
+
+        </form>
+
+    </main>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Our configuration -->
+    <script src="js/config.js"></script>
+
+    <!-- Our application -->
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
