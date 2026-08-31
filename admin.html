@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Zone</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <header class="top-bar">
+
+        <div>
+
+            <h1>🔐 Admin Zone</h1>
+
+            <p>
+                Manage your form
+            </p>
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="admin-link"
+        >
+            ← Form
+        </a>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- =================================
+             LOGIN
+        ================================== -->
+
+        <section
+            id="loginSection"
+            class="admin-card"
+        >
+
+            <h2>
+                Welcome back 👋
+            </h2>
+
+            <p>
+                Please sign in to manage
+                your form.
+            </p>
+
+
+            <form id="loginForm">
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="admin@email.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="finish-button"
+                    id="loginButton"
+                >
+                    🔐 Login
+                </button>
+
+
+                <p
+                    id="loginMessage"
+                    class="form-message"
+                ></p>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================
+             DASHBOARD
+        ================================== -->
+
+        <section
+            id="dashboardSection"
+            style="display:none;"
+        >
+
+
+            <!-- DASHBOARD HEADER -->
+
+            <div class="admin-card">
+
+                <div class="dashboard-header">
+
+                    <div>
+
+                        <h2>
+                            ⚙️ Form Dashboard
+                        </h2>
+
+                        <p id="adminEmail"></p>
+
+                    </div>
+
+
+                    <button
+                        id="logoutButton"
+                        class="secondary-button"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 QUESTION MANAGEMENT
+            ================================== -->
+
+            <section class="admin-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            📝 Questions
+                        </h2>
+
+                        <p>
+                            Add, edit or remove
+                            questions and choices.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="addQuestionButton"
+                        class="finish-button"
+                    >
+                        ➕ Add Question
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="adminQuestionsContainer"
+                >
+
+                    <p class="loading">
+                        Loading questions... ⏳
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 QUESTION EDITOR
+            ================================== -->
+
+            <section
+                id="questionEditor"
+                class="admin-card"
+                style="display:none;"
+            >
+
+                <div class="editor-header">
+
+                    <div>
+
+                        <h2 id="editorTitle">
+                            ➕ Add Question
+                        </h2>
+
+                        <p>
+                            Create the question
+                            and its choices.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUESTION TEXT -->
+
+                <div class="input-group">
+
+                    <label for="questionText">
+                        Question
+                    </label>
+
+                    <textarea
+                        id="questionText"
+                        rows="3"
+                        placeholder="Enter your question..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- CHOICES -->
+
+                <div class="choices-editor">
+
+                    <div class="choices-title">
+
+                        <h3>
+                            Choices
+                        </h3>
+
+                        <button
+                            type="button"
+                            id="addChoiceButton"
+                            class="secondary-button"
+                        >
+                            ➕ Add Choice
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="choicesEditorContainer"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- EDITOR ACTIONS -->
+
+                <div class="editor-actions">
+
+                    <button
+                        type="button"
+                        id="cancelEditorButton"
+                        class="secondary-button"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="saveQuestionButton"
+                        class="finish-button"
+                    >
+                        💾 Save Question
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="editorMessage"
+                    class="form-message"
+                ></p>
+
+            </section>
+
+
+
+            <!-- =================================
+                 SUBMISSIONS
+            ================================== -->
+
+            <section class="admin-card">
+
+                <h2>
+                    📥 Submissions
+                </h2>
+
+                <p>
+                    We'll build the submissions
+                    viewer in the next stage.
+                </p>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+
+    <!-- CONFIG -->
+
+    <script src="js/config.js"></script>
+
+
+    <!-- ADMIN -->
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>
