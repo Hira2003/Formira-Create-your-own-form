@@ -1,32 +1,49 @@
-const questionsContainer =
-    document.getElementById("questionsContainer");
-
-const quizForm =
-    document.getElementById("quizForm");
+const questionsContainer = document.getElementById("questionsContainer");
+const quizForm = document.getElementById("quizForm");
 
 
-// ================================
-// LOAD QUESTIONS
-// ================================
+// ========================================
+// LOAD QUESTIONS FROM SUPABASE
+// ========================================
 
 async function loadQuestions() {
 
-    const { data: questions, error: questionsError } =
-        await supabaseClient
-            .from("questions")
-            .select("*")
-            .order("question_order", {
-                ascending: true
-            });
+    questionsContainer.innerHTML = `
+        <p class="loading">
+            Loading questions... ⏳
+        </p>
+    `;
 
 
-    if (questionsError) {
+    const { data: questions, error } = await supabaseClient
+        .from("questions")
+        .select("*")
+        .order("question_order", {
+            ascending: true
+        });
 
-        console.error(questionsError);
+
+    if (error) {
+
+        console.error("Questions error:", error);
 
         questionsContainer.innerHTML = `
             <div class="error-message">
                 ❌ Failed to load questions.
+                <br><br>
+                Please try again later.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    if (!questions || questions.length === 0) {
+
+        questionsContainer.innerHTML = `
+            <div class="error-message">
+                ⚠️ There are currently no questions.
             </div>
         `;
 
@@ -37,21 +54,30 @@ async function loadQuestions() {
     questionsContainer.innerHTML = "";
 
 
+    // ========================================
+    // LOAD EACH QUESTION'S CHOICES
+    // ========================================
+
     for (const question of questions) {
 
-        const { data: choices, error: choicesError } =
-            await supabaseClient
-                .from("choices")
-                .select("*")
-                .eq("question_id", question.id)
-                .order("choice_order", {
-                    ascending: true
-                });
+        const {
+            data: choices,
+            error: choicesError
+        } = await supabaseClient
+            .from("choices")
+            .select("*")
+            .eq("question_id", question.id)
+            .order("choice_order", {
+                ascending: true
+            });
 
 
         if (choicesError) {
 
-            console.error(choicesError);
+            console.error(
+                `Choices error for question ${question.id}:`,
+                choicesError
+            );
 
             continue;
         }
@@ -59,24 +85,26 @@ async function loadQuestions() {
 
         createQuestion(
             question,
-            choices
+            choices || []
         );
     }
+
 }
 
 
-// ================================
-// CREATE QUESTION HTML
-// ================================
+// ========================================
+// CREATE QUESTION CARD
+// ========================================
 
 function createQuestion(question, choices) {
 
     const questionCard =
         document.createElement("section");
 
-    questionCard.className =
-        "question-card";
+    questionCard.className = "question-card";
 
+
+    // Question title
 
     const questionTitle =
         document.createElement("h2");
@@ -88,20 +116,22 @@ function createQuestion(question, choices) {
     questionCard.appendChild(questionTitle);
 
 
+    // Choices container
+
     const choicesContainer =
         document.createElement("div");
 
-    choicesContainer.className =
-        "choices";
+    choicesContainer.className = "choices";
 
+
+    // Create radio buttons
 
     choices.forEach(choice => {
 
         const label =
             document.createElement("label");
 
-        label.className =
-            "choice";
+        label.className = "choice";
 
 
         const input =
@@ -142,12 +172,13 @@ function createQuestion(question, choices) {
     questionsContainer.appendChild(
         questionCard
     );
+
 }
 
 
-// ================================
-// SUBMIT FORM
-// ================================
+// ========================================
+// FINISHED BUTTON
+// ========================================
 
 quizForm.addEventListener(
     "submit",
@@ -156,31 +187,80 @@ quizForm.addEventListener(
         event.preventDefault();
 
 
-        const formData =
-            new FormData(quizForm);
+        const selectedAnswers = [];
 
 
-        const answers = {};
+        // Find every question card
+
+        const questionCards =
+            document.querySelectorAll(
+                ".question-card"
+            );
 
 
-        for (const [key, value] of formData.entries()) {
+        questionCards.forEach(
+            (card, index) => {
 
-            answers[key] = value;
-
-        }
-
-
-        console.log("Answers:", answers);
+                const questionTitle =
+                    card.querySelector("h2");
 
 
-        // Save temporarily
-        sessionStorage.setItem(
-            "formAnswers",
-            JSON.stringify(answers)
+                const selectedInput =
+                    card.querySelector(
+                        "input[type='radio']:checked"
+                    );
+
+
+                if (!selectedInput) {
+                    return;
+                }
+
+
+                selectedAnswers.push({
+
+                    question:
+                        questionTitle.textContent,
+
+                    answer:
+                        selectedInput.value
+
+                });
+
+            }
         );
 
 
-        // Go to results page
+        // ========================================
+        // SAFETY CHECK
+        // ========================================
+
+        if (
+            selectedAnswers.length !==
+            questionCards.length
+        ) {
+
+            alert(
+                "⚠️ Please answer all questions before continuing."
+            );
+
+            return;
+        }
+
+
+        // ========================================
+        // SAVE ANSWERS
+        // ========================================
+
+        sessionStorage.setItem(
+            "formAnswers",
+            JSON.stringify(selectedAnswers)
+        );
+
+
+        // ========================================
+        // GO TO RESULTS
+        // ========================================
+
         window.location.href =
             "results.html";
 
@@ -188,8 +268,8 @@ quizForm.addEventListener(
 );
 
 
-// ================================
-// START
-// ================================
+// ========================================
+// START APPLICATION
+// ========================================
 
 loadQuestions();
